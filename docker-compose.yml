@@ -1,0 +1,84 @@
+services:
+  postgres_db:
+    image: postgres:16-alpine
+    container_name: loruki_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: demo_db
+    ports:
+      - "5433:5432"
+    networks:
+      - loruki_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test_user -d demo_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: loruki_api
+    restart: unless-stopped
+    environment:
+      DB_HOST: loruki_db
+      DB_PORT: 5432
+      DB_USER: test_user
+      DB_PASSWORD: test_password
+      DB_NAME: demo_db
+    ports:
+      - "5000:5000"
+    networks:
+      - loruki_network
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+
+  webapp:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: loruki_webapp
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    networks:
+      - loruki_network
+    depends_on:
+      api:
+        condition: service_started
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: loruki_pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+    ports:
+      - "5050:80"
+    networks:
+      - loruki_network
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+networks:
+  loruki_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
