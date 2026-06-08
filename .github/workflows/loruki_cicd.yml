@@ -8,6 +8,14 @@ on:
 
     workflow_dispatch:
 
+
+env:
+    AWS_REGION: ${{ secrets.AWS_REGION }}
+    ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/hexagon-ecr
+    FRONTEND_IMAGE: loruki_app/frontend
+    BACKEND_IMAGE: loruki_app/backend
+    POSTGRES_IMAGE: loruki_app/postgres
+
 jobs:
     #  Job 1: Test
     test:
@@ -58,7 +66,7 @@ jobs:
               with:
                 aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
                 aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                aws-region: eu-west-1
+                aws-region: ${{ env.AWS_REGION }}
 
             - name: Login to Amazon ECR
               id: login-ecr
