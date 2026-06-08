@@ -33,4 +33,3 @@ class DemoRequest(db.Model):
 
     def __repr__(self):
         return f"<DemoRequest {self.id} – {self.email}>"
-    
