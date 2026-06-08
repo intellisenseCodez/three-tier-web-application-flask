@@ -68,7 +68,10 @@ def submit_demo():
     except Exception as exc:
         db.session.rollback()
         # Don't leak DB internals to the client
-        return jsonify({"success": False, "errors": ["Database error. Please try again."]}), 500
+        return jsonify({
+            "success": False, 
+            "errors": ["Database error. Please try again."]
+            }), 500
 
     return jsonify({"success": True, "data": record.to_dict()}), 201
 
@@ -80,7 +83,10 @@ def list_demos():
     Returns all demo requests (admin/internal use – protect this in production).
     """
     records = DemoRequest.query.order_by(DemoRequest.submitted_at.desc()).all()
-    return jsonify({"success": True, "data": [r.to_dict() for r in records]}), 200
+    return jsonify({
+        "success": True, 
+        "data": [r.to_dict() for r in records]
+        }), 200
 
 
 @demo_bp.route("/health", methods=["GET"])
