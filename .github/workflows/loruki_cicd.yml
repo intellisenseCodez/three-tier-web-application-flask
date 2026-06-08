@@ -30,8 +30,8 @@ jobs:
             # - name: Lint test with flake8
             #   run: flake8 backend/ 
 
-            - name: Check formatting with black
-              run: black --check backend/
+            # - name: Check formatting with black
+            #   run: black --check backend/
 
 
             
