@@ -5,7 +5,8 @@ db = SQLAlchemy()
 
 
 class DemoRequest(db.Model):
-    """Stores every 'Request a Demo' form submission."""
+    """Stores every 'Request 
+    a Demo' form submission."""
 
     __tablename__ = "demo_requests"
 
@@ -20,7 +21,8 @@ class DemoRequest(db.Model):
     )
 
     def to_dict(self):
-        """Serialise the record to a plain dict (for JSON responses)."""
+        """Serialise the record to a 
+        plain dict (for JSON responses)."""
         return {
             "id": self.id,
             "name": self.name,
@@ -31,3 +33,4 @@ class DemoRequest(db.Model):
 
     def __repr__(self):
         return f"<DemoRequest {self.id} – {self.email}>"
+    

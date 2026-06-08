@@ -13,7 +13,7 @@ else:
     load_dotenv(".env.dev")
 
 class Config:
-    # ── Database ──────────────────────────────────────────────────────────────
+    # ── Database 
     DB_HOST = os.getenv("DB_HOST")
 
     SQLALCHEMY_DATABASE_URI = os.getenv(
@@ -22,9 +22,10 @@ class Config:
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    # ── Security ──────────────────────────────────────────────────────────────
+    # ── Security 
     SECRET_KEY = os.getenv("SECRET_KEY", "change-me-in-production")
 
-    # ── CORS ──────────────────────────────────────────────────────────────────
-    # Set ALLOWED_ORIGIN in .env to match your frontend URL, e.g. http://localhost:3000
+    # ── CORS 
+    # Set ALLOWED_ORIGIN in .env to match your frontend URL,
+    # e.g. http://localhost:3000
     ALLOWED_ORIGIN = os.getenv("ALLOWED_ORIGIN", "*")
