@@ -54,7 +54,9 @@ def submit_demo():
     # ── Validation layer ──────────────────────────────────────────────────────
     errors = _validate_payload(data)
     if errors:
-        return jsonify({"success": False, "errors": errors}), 422
+        return jsonify({
+            "success": False,
+            "errors": errors}), 422
 
     # ── Data / persistence layer ──────────────────────────────────────────────
     try:
@@ -69,7 +71,7 @@ def submit_demo():
         db.session.rollback()
         # Don't leak DB internals to the client
         return jsonify({
-            "success": False, 
+            "success": False,
             "errors": ["Database error. Please try again."]
             }), 500
 
@@ -84,7 +86,7 @@ def list_demos():
     """
     records = DemoRequest.query.order_by(DemoRequest.submitted_at.desc()).all()
     return jsonify({
-        "success": True, 
+        "success": True,
         "data": [r.to_dict() for r in records]
         }), 200
 
