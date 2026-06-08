@@ -4,7 +4,7 @@ from models import db, DemoRequest
 
 demo_bp = Blueprint("demo", __name__)
 
-# ── Helpers 
+# ── Helpers
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 
@@ -49,14 +49,14 @@ def submit_demo():
     else:
         data = request.form.to_dict()
 
-    # ── Validation layer 
+    # ── Validation layer
     errors = _validate_payload(data)
     if errors:
         return jsonify({
             "success": False,
             "errors": errors}), 422
 
-    # ── Data / persistence layer 
+    # ── Data / persistence layer
     try:
         record = DemoRequest(
             name=data["name"].strip(),
