@@ -67,7 +67,7 @@ def submit_demo():
         )
         db.session.add(record)
         db.session.commit()
-    except Exception as exc:
+    except Exception:
         db.session.rollback()
         # Don't leak DB internals to the client
         return jsonify({
