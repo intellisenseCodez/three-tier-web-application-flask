@@ -12,7 +12,8 @@ def create_app():
     # Allow requests from your frontend origin
     CORS(app, resources={r"/api/*": {"origins": Config.ALLOWED_ORIGIN}})
 
-    # Initialise SQLAlchemy with this app
+    # Initialise S
+    # QLAlchemy with this app
     db.init_app(app)
 
     # Register blueprints

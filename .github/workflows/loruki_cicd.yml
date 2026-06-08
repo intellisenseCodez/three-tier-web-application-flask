@@ -1,0 +1,40 @@
+name: Loruki CI/CD Pipepline
+
+on: 
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+jobs:
+    #  Job 1: Test
+    test:
+        name: Lint & Unit Test
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v6
+
+            - name: Set up Python
+              uses: actions/setup-python@v6
+              with:
+                python-version: '3.13'
+                cache: 'pip'
+
+            - name: Install dependencies
+              run: |
+                pip install -r backend/requirements.txt
+                pip install flake8 black pytest pytest-cov
+
+            - name: Lint test with flake8
+              run: flake8 backend/ 
+
+            - name: Check formatting with black
+              run: black --check backend/
+
+
+            
+
+
+            
