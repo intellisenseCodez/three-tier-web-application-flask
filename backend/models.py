@@ -5,7 +5,7 @@ db = SQLAlchemy()
 
 
 class DemoRequest(db.Model):
-    """Stores every 'Request 
+    """Stores every 'Request
     a Demo' form submission."""
 
     __tablename__ = "demo_requests"
@@ -21,7 +21,7 @@ class DemoRequest(db.Model):
     )
 
     def to_dict(self):
-        """Serialise the record to a 
+        """Serialise the record to a
         plain dict (for JSON responses)."""
         return {
             "id": self.id,
