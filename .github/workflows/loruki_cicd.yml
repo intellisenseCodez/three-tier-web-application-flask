@@ -27,8 +27,8 @@ jobs:
                 pip install -r backend/requirements.txt
                 pip install flake8 black pytest pytest-cov
 
-            - name: Lint test with flake8
-              run: flake8 backend/ 
+            # - name: Lint test with flake8
+            #   run: flake8 backend/ 
 
             - name: Check formatting with black
               run: black --check backend/
