@@ -33,6 +33,25 @@ jobs:
             # - name: Check formatting with black
             #   run: black --check backend/
 
+            - name: Security scan
+              uses: aquasecurity/trivy-action@v0.36.0
+              with:
+                scan-type: 'fs'
+                ignore-unfixed: true
+                format: 'sarif'
+                output: 'trivy-results.sarif'
+                severity: CRITICAL,HIGH
+        
+    build-and-push:
+        name: Build and Push Image to ECR
+        runs-on: ubuntu-latest
+        
+        steps:
+            - name: DO NOTHING
+              run: uname
+
+
+
 
             
 
