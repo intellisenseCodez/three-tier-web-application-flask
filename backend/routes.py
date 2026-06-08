@@ -82,7 +82,7 @@ def submit_demo():
 def list_demos():
     """
     GET /api/demo
-    Returns all demo requests (admin/internal 
+    Returns all demo requests (admin/internal
     use – protect this in production).
     """
     records = DemoRequest.query.order_by(
