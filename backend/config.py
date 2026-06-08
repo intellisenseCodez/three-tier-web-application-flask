@@ -25,7 +25,7 @@ class Config:
     # ── Security 
     SECRET_KEY = os.getenv("SECRET_KEY", "change-me-in-production")
 
-    # ── CORS 
+    # ── CORS
     # Set ALLOWED_ORIGIN in .env to match your frontend URL,
     # e.g. http://localhost:3000
     ALLOWED_ORIGIN = os.getenv("ALLOWED_ORIGIN", "*")
