@@ -5,6 +5,8 @@ on:
         branches: [main]
     pull_request:
         branches: [main]
+        
+    workflow_dispatch:
 
 jobs:
     #  Job 1: Test
@@ -79,7 +81,7 @@ jobs:
                     ${{ env.ECR_REGISTRY }}/${{ env.FRONTEND_IMAGE }}:lastest
                     ${{ env.ECR_REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ steps.meta.outputs.tag }}
 
-                    
+
 
 
 
