@@ -82,9 +82,12 @@ def submit_demo():
 def list_demos():
     """
     GET /api/demo
-    Returns all demo requests (admin/internal use – protect this in production).
+    Returns all demo requests (admin/internal 
+    use – protect this in production).
     """
-    records = DemoRequest.query.order_by(DemoRequest.submitted_at.desc()).all()
+    records = DemoRequest.query.order_by(
+        DemoRequest.submitted_at.desc()
+        ).all()
     return jsonify({
         "success": True,
         "data": [r.to_dict() for r in records]
