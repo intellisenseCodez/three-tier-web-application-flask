@@ -83,12 +83,12 @@ jobs:
               env:
                 ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
                 ECR_REPOSITORY: hexagon-ecr
-                IMAGE_TAG: loruki_frontend
+                IMAGE_NAME: loruki_frontend
               run: |
-                docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./frontend/
-                docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.run_number }}
-                docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-                docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.run_number }}
+                docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_NAME ./frontend/
+                docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_NAME $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_NAME-${{ github.run_number }}
+                docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_NAME
+                docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_NAME-${{ github.run_number }}
     
     build-backend:
         name: Build and Push Backend Image to ECR
@@ -122,12 +122,12 @@ jobs:
               env:
                 ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
                 ECR_REPOSITORY: hexagon-ecr
-                IMAGE_TAG: loruki_backend
+                IMAGE_NAME: loruki_backend
               run: |
-                docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./backend/
-                docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.run_number }}
-                docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-                docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.run_number }}
+                docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_NAME ./backend/
+                docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_NAME $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_NAME-${{ github.run_number }}
+                docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_NAME
+                docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_NAME-${{ github.run_number }}
 
 
     pull_postgres:
@@ -162,11 +162,11 @@ jobs:
               env:
                 ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
                 ECR_REPOSITORY: hexagon-ecr
-                IMAGE_TAG: postgres_db
+                IMAGE_NAME: postgres_db
               run: |
                 docker pull postgres:16-alpine
-                docker tag postgres:16-alpine $ECR_REGISTRY/$ECR_REPOSITORY/postgres_db:16
-                docker push $ECR_REGISTRY/$ECR_REPOSITORY/postgres_db:16
+                docker tag postgres:16-alpine $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_NAME-16
+                docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_NAME-16
 
 
 
