@@ -77,12 +77,18 @@ jobs:
                 SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
                 echo "tag=${SHORT_SHA}" >> $GITHUB_OUTPUT
                 echo "Image tag: ${SHORT_SHA}"
-                
+
               
             - name: Build & Push frontend Image
+              env:
+                ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+                ECR_REPOSITORY: hexagon-ecr
+                IMAGE_TAG: latest
               run: |
-                docker build -t ${{ secrets.ECR_REGISTRY }}/hexagon-ecr:latest ./frontend/
-                docker push ${{ secrets.ECR_REGISTRY }}/hexagon-ecr:latest
+                docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./frontend/
+                docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.run_number }}
+                docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+                docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.run_number }}
 
 
 
