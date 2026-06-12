@@ -165,8 +165,8 @@ jobs:
                 IMAGE_TAG: postgres_db
               run: |
                 docker pull postgres:16-alpine
-                docker tag postgres:16-alpine $ECR_REGISTRY/$ECR_REPOSITORY:16
-                docker push $ECR_REGISTRY/$ECR_REPOSITORY:16
+                docker tag postgres:16-alpine $ECR_REGISTRY/$ECR_REPOSITORY/postgres_db:16
+                docker push $ECR_REGISTRY/$ECR_REPOSITORY/postgres_db:16
 
 
 
