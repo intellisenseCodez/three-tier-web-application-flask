@@ -216,10 +216,13 @@ jobs:
               ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
               ECR_REPOSITORY: hexagon-ecr
               IMAGE_TAG: loruki_frontend
+              AWS_REGION: ${{ secrets.AWS_REGION }}
+              RUN_NUMBER: ${{ github.run_number }}
           with:
             host: ${{ secrets.EC2_HOST }}
             username: ${{ secrets.EC2_USERNAME }}
             key: ${{ secrets.EC2_SSH_KEY }}
+            envs: ECR_REGISTRY,ECR_REPOSITORY,IMAGE_TAG,AWS_REGION,RUN_NUMBER
             script: |
               # Log in to ECR from the EC2 instance
               aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | \
