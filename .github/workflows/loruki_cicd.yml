@@ -89,6 +89,13 @@ jobs:
                 docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-${{ github.run_number }}
                 docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
                 docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-${{ github.run_number }}
+
+            - name: Notify ECR Push
+              run: |
+                aws sns publish \
+                  --topic-arn ${{ secrets.SNS_TOPIC_ARN }} \
+                  --subject "New Loruki Image Pushed to ECR"
+                  --message "A new Frontend Image pushed by ${{ github.actor }}. Repository: ${{ github.repository }}"
     
     build-backend:
         name: Build and Push Backend Image to ECR
@@ -129,6 +136,13 @@ jobs:
                 docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
                 docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-${{ github.run_number }}
 
+            - name: Notify ECR Push
+              run: |
+                aws sns publish \
+                  --topic-arn ${{ secrets.SNS_TOPIC_ARN }} \
+                  --subject "New Loruki Image Pushed to ECR"
+                  --message "A new Frontend Image pushed by ${{ github.actor }}. Repository: ${{ github.repository }}"
+
 
     pull_postgres:
         name: Pull and Push Postgres Image to ECR
@@ -167,6 +181,14 @@ jobs:
                 docker pull postgres:16-alpine
                 docker tag postgres:16-alpine $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-16
                 docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-16
+
+
+            - name: Notify ECR Push
+              run: |
+                aws sns publish \
+                  --topic-arn ${{ secrets.SNS_TOPIC_ARN }} \
+                  --subject "New Loruki Image Pushed to ECR"
+                  --message "A new Frontend Image pushed by ${{ github.actor }}. Repository: ${{ github.repository }}"
 
 
 
