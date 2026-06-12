@@ -77,16 +77,12 @@ jobs:
                 SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
                 echo "tag=${SHORT_SHA}" >> $GITHUB_OUTPUT
                 echo "Image tag: ${SHORT_SHA}"
+                
               
             - name: Build & Push frontend Image
-              uses: docker/build-push-action@v7
-              with:
-                context: ./frontend
-                file: ./frontend/Dockerfile
-                push: true
-                tags: |
-                    ${{ secrets.ECR_REGISTRY }}/${{ env.FRONTEND_IMAGE }}:lastest
-                    ${{ secrets.ECR_REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ steps.meta.outputs.tag }}
+              run: |
+                docker build -t ${{ secrets.ECR_REGISTRY }}/hexagon-ecr:latest ./frontend/
+                docker push ${{ secrets.ECR_REGISTRY }}/hexagon-ecr:latest
 
 
 
