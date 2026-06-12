@@ -212,6 +212,10 @@ jobs:
 
         - name: Depoly via EC2
           uses: appleboy/ssh-action@master
+          env:
+              ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+              ECR_REPOSITORY: hexagon-ecr
+              IMAGE_TAG: loruki_frontend
           with:
             host: ${{ secrets.EC2_HOST }}
             username: ${{ secrets.EC2_USERNAME }}
@@ -233,7 +237,7 @@ jobs:
                 --name loruki-frontend-app \
                 -p 80:80 \
                 --restart always \
-                ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:loruki_frontend-${{ github.run_number }}
+                $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-${{ github.run_number }}
 
 
 
