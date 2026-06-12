@@ -94,7 +94,7 @@ jobs:
               run: |
                 aws sns publish \
                   --topic-arn ${{ secrets.SNS_TOPIC_ARN }} \
-                  --subject "New Loruki Image Pushed to ECR"
+                  --subject "New Loruki Image Pushed to ECR" \
                   --message "A new Frontend Image pushed by ${{ github.actor }}. Repository: ${{ github.repository }}"
     
     build-backend:
@@ -140,8 +140,8 @@ jobs:
               run: |
                 aws sns publish \
                   --topic-arn ${{ secrets.SNS_TOPIC_ARN }} \
-                  --subject "New Loruki Image Pushed to ECR"
-                  --message "A new Frontend Image pushed by ${{ github.actor }}. Repository: ${{ github.repository }}"
+                  --subject "New Loruki Image Pushed to ECR" \
+                  --message "A new Backend Image pushed by ${{ github.actor }}. Repository: ${{ github.repository }}"
 
 
     pull_postgres:
@@ -187,8 +187,8 @@ jobs:
               run: |
                 aws sns publish \
                   --topic-arn ${{ secrets.SNS_TOPIC_ARN }} \
-                  --subject "New Loruki Image Pushed to ECR"
-                  --message "A new Frontend Image pushed by ${{ github.actor }}. Repository: ${{ github.repository }}"
+                  --subject "New Loruki Image Pushed to ECR" \
+                  --message "A new Postgres Image pushed by ${{ github.actor }}. Repository: ${{ github.repository }}"
 
 
 
