@@ -234,10 +234,10 @@ jobs:
 
               # Run new container
               docker run -d \
-                --name loruki-frontend-app \
-                -p 80:80 \
-                --restart always \
-                $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-${{ github.run_number }}
+              --name loruki-frontend-app \
+              -p 80:80 \
+              --restart always \
+              $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-${{ github.run_number }}
 
 
 
