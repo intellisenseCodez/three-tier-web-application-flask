@@ -51,7 +51,7 @@ jobs:
                 output: 'trivy-results.sarif'
                 severity: CRITICAL,HIGH
         
-    build-and-push:
+    build-frontend:
         name: Build and Push Image to ECR
         runs-on: ubuntu-latest
         needs: [test]
