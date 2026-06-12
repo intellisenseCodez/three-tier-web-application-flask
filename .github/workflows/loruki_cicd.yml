@@ -232,8 +232,8 @@ jobs:
               docker pull ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:loruki_frontend-${{ github.run_number }}
 
               # Stop and remove old container
-              # docker stop loruki-frontend-app || true
-              # docker rm loruki-frontend-app || true
+              docker stop loruki-frontend-app || true
+              docker rm loruki-frontend-app || true
 
               # Run new container
               docker run -d --name loruki-frontend-app -p 80:80 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-${{ github.run_number }}
